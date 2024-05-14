@@ -73,6 +73,20 @@ def dropna_df(df):
     """
     return df.dropna()
 
+def add_year_column(df, year):
+    """
+    Agrega una columna 'Year' con el valor especificado al DataFrame dado.
+
+    Args:
+        df (DataFrame): El DataFrame al que se agregará la columna.
+        year (int): El año que se asignará a la columna 'Year'.
+
+    Returns:
+        DataFrame: El DataFrame con la columna 'Year' agregada.
+    """
+    df['Year'] = year
+    return df
+
 
 def drop_columns(df, columns_to_drop):
     """
@@ -81,6 +95,8 @@ def drop_columns(df, columns_to_drop):
     for column in columns_to_drop:
         if column in df.columns:
             df.drop([column], axis=1, inplace=True)
+
+
 
 
 # Define columns to drop for each DataFrame
