@@ -2,7 +2,6 @@ def standardize_column_1516(df):
     """
     Standardizes column names for 2015 and 2016 DataFrames.
     """
-    # Map old column names to new names
     new_column_names = {
         'Country': 'Country',
         'Region': 'Region',
@@ -18,7 +17,6 @@ def standardize_column_1516(df):
         'Dystopia Residual': 'Dystopia_Residual'
     }
 
-    # Rename columns using the mapping dictionary
     df.rename(columns=new_column_names, inplace=True)
 
 
@@ -26,7 +24,6 @@ def standardize_column_17(df):
     """
     Standardizes column names for 2017 DataFrame.
     """
-    # Map old column names to new names
     new_column_names = {
         'Country': 'Country',
         'Happiness.Rank': 'Happiness_Rank',
@@ -42,7 +39,6 @@ def standardize_column_17(df):
         'Dystopia.Residual': 'Dystopia_Residual'
     }
 
-    # Rename columns using the mapping dictionary
     df.rename(columns=new_column_names, inplace=True)
 
 
@@ -50,7 +46,6 @@ def standardize_1819(df):
     """
     Standardizes column names for 2018 and 2019 DataFrames.
     """
-    # Map old column names to new names
     new_column_names = {
         'Overall rank': 'Happiness_Rank',
         'Country or region': 'Country',
@@ -63,7 +58,6 @@ def standardize_1819(df):
         'Perceptions of corruption': 'Corruption'
     }
 
-    # Rename columns using the mapping dictionary
     df.rename(columns=new_column_names, inplace=True)
 
 
@@ -97,9 +91,6 @@ def drop_columns(df, columns_to_drop):
             df.drop([column], axis=1, inplace=True)
 
 
-
-
-# Define columns to drop for each DataFrame
 columns_to_drop_2015 = ['Region', 'Standard_Error', 'Dystopia_Residual']
 columns_to_drop_2016 = ['Region', 'Lower Confidence Interval', 'Upper Confidence Interval', 'Dystopia_Residual']
 columns_to_drop_2017 = ['Whisker_High', 'Whisker_Low', 'Dystopia_Residual']

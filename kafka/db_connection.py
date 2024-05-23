@@ -8,12 +8,10 @@ from sqlalchemy.orm import sessionmaker
 import numpy as np
 
 
-# Definir la cadena de conexión a la base de datos como constante
-
 Base = declarative_base()
 
 class HappinessData(Base):
-    __tablename__ = 'happiness_table'
+    __tablename__ = 'pruebaa'
 
     id = Column(Integer, primary_key=True)
     Economy_GDP_per_Capita = Column(Float)
@@ -22,7 +20,6 @@ class HappinessData(Base):
     Freedom = Column(Float)
     Corruption = Column(Float)
     Generosity = Column(Float)
-    Year = Column(Integer)
     Happiness_Score = Column(Float)
     Predicted_Happiness_Score = Column(Float)
 
@@ -34,7 +31,6 @@ def connect_bd():
         engine = create_engine(db_uri)
         return engine
     except Exception as error:
-        # Mejor manejo de excepciones
         logging.error("Error connecting to PostgreSQL database: %s", error)
         return None
 
@@ -55,7 +51,6 @@ def insert_data(data):
         Session = sessionmaker(bind=engine)
         session = Session()
 
-        # Crear una instancia de HappinessData con los datos proporcionados
         new_data = HappinessData(
             Economy_GDP_per_Capita=data['Economy_GDP_per_Capita'],
             Social_Support=data['Social_Support'],
@@ -63,7 +58,6 @@ def insert_data(data):
             Freedom=data['Freedom'],
             Corruption=data['Corruption'],
             Generosity=data['Generosity'],
-            Year=data['Year'],
             Happiness_Score=data['Happiness_Score'],
             Predicted_Happiness_Score=data['Predicted_Happiness_Score']
         )
@@ -78,12 +72,25 @@ def insert_data(data):
         logging.error("Data that caused the error: %s", data)
         return False
 
+def read_data():
+    try:
+        engine = connect_bd()
+        if engine is None:
+            raise Exception("No se pudo conectar a la base de datos")
+        
+        query = "SELECT * FROM pruebaa"
+        df = pd.read_sql(query, engine)
+        return df
+    except Exception as error:
+        logging.error("Error reading data from database: %s", error)
+        return None
+
 
     
 if __name__ == "__main__":
-    # Manejo de resultados de la creación de la tabla
+
     if create_table():
-        print("Table 'happiness_table' created successfully")
+        print("Table 'prueba' created successfully")
     else:
-        print("Failed to create table 'happiness_table'")
+        print("Failed to create table 'prueba'")
     

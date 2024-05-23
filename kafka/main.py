@@ -1,11 +1,16 @@
 from kafka import KafkaProducer, KafkaConsumer
 #from confluent_kafka import Producer
 import pandas as pd
+import logging
 import joblib
 from json import dumps, loads
 from time import sleep, time
-from db_connection import create_table, insert_data
+from db_connection import insert_data
 import numpy as np
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 joblib_file = "../Model/random_forest_model.pkl"
 model = joblib.load(joblib_file)
@@ -17,12 +22,15 @@ def kafka_producer(row):
     )
 
     message = row.to_dict()
-    producer.send('kafka-happiness', value=message)
+    producer.send('kafka-prediction', value=message)
+    producer.flush()  
     print("Message sent")
+    
+    sleep(1)
 
 def kafka_consumer(model):
     consumer = KafkaConsumer(
-        'kafka-happiness',
+        'kafka-prediction',
         enable_auto_commit=True,
         group_id='my-group-1',
         value_deserializer=lambda m: loads(m.decode('utf-8')),
@@ -30,10 +38,11 @@ def kafka_consumer(model):
     )
 
     for message in consumer:
+        logger.info("Received message: %s", message.value)  
         df = pd.json_normalize(data=message.value)
         try:
-            df['Predicted_Happiness_Score'] = model.predict(df[['Economy_GDP_per_Capita', 'Social_Support', 'Health_Life_Expectancy', 'Freedom', 'Corruption', 'Generosity','Year']])
+            df['Predicted_Happiness_Score'] = model.predict(df[['Economy_GDP_per_Capita', 'Social_Support', 'Health_Life_Expectancy', 'Freedom', 'Corruption', 'Generosity']])
             insert_data(df.iloc[0])
-            #print("Data inserted")
+            logger.info("Data inserted")
         except Exception as e:
-            print(f"Error inserting data: {e}")
+            logger.error("Error inserting data: %s", e)  

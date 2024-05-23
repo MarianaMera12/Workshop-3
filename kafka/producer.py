@@ -4,18 +4,12 @@ import pandas as pd
 from main import kafka_producer
 
 def etl_csv():
-    # Define file paths
-    csv_2015 = '../data/2015.csv'
-    csv_2016 = '../data/2016.csv'
-    csv_2017 = '../data/2017.csv'
-    csv_2018 = '../data/2018.csv'
-    csv_2019 = '../data/2019.csv'
 
-    df_2015 = pd.read_csv(csv_2015, sep=',', encoding='latin-1')
-    df_2016 = pd.read_csv(csv_2016, sep=',', encoding='latin-1')
-    df_2017 = pd.read_csv(csv_2017, sep=',', encoding='latin-1')
-    df_2018 = pd.read_csv(csv_2018, sep=',', encoding='latin-1')
-    df_2019 = pd.read_csv(csv_2019, sep=',', encoding='latin-1')
+    df_2015 = pd.read_csv('../data/2015.csv')
+    df_2016 = pd.read_csv('../data/2016.csv')
+    df_2017 = pd.read_csv('../data/2017.csv')
+    df_2018 = pd.read_csv('../data/2018.csv')
+    df_2019 = pd.read_csv('../data/2019.csv')
 
     standardize_column_1516(df_2015)
     standardize_column_1516(df_2016)
@@ -31,20 +25,12 @@ def etl_csv():
     drop_columns(df_2016, columns_to_drop_2016)
     drop_columns(df_2017, columns_to_drop_2017)
 
-    df_2015 = add_year_column(df_2015, 2015)
-    df_2016 = add_year_column(df_2016, 2016)
-    df_2017 = add_year_column(df_2017, 2017)
-    df_2018 = add_year_column(df_2018, 2018)
-    df_2019 = add_year_column(df_2019, 2019)
-
-
     df = pd.concat([df_2015, df_2016, df_2017, df_2018, df_2019], ignore_index=True)
 
     columns_to_drop = ['Country','Happiness_Rank']
     drop_columns(df,columns_to_drop)
 
     df = dropna_df(df)
-
 
     return df
 
@@ -59,15 +45,12 @@ def split_data(df):
     Returns:
         DataFrame: Un DataFrame que contiene solo las filas de prueba.
     """
-    # Verificar si la columna 'Year' está presente en el DataFrame
-    # Seleccionar las filas de prueba
-    X = df[['Economy_GDP_per_Capita', 'Social_Support', 'Health_Life_Expectancy', 'Freedom', 'Corruption', 'Generosity','Year']]
+
+    X = df[['Economy_GDP_per_Capita', 'Social_Support', 'Health_Life_Expectancy', 'Freedom', 'Corruption', 'Generosity']]
     y = df['Happiness_Score']
 
-    # Dividir los datos en conjuntos de entrenamiento y prueba
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=59)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=59)
 
-    # Devolver solo las filas de prueba
     return df.loc[y_test.index]
 
 
