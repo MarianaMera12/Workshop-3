@@ -14,8 +14,8 @@ def etl_csv():
     standardize_column_1516(df_2015)
     standardize_column_1516(df_2016)
     standardize_column_17(df_2017)
-    standardize_1819(df_2018)
-    standardize_1819(df_2019)
+    standardize_column_1819(df_2018)
+    standardize_column_1819(df_2019)
 
     columns_to_drop_2015 = ['Region', 'Standard_Error', 'Dystopia_Residual']
     columns_to_drop_2016 = ['Region', 'Lower Confidence Interval', 'Upper Confidence Interval', 'Dystopia_Residual']

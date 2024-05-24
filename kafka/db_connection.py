@@ -2,10 +2,9 @@ import pandas as pd
 import os
 import logging
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, Column, Integer, String, Float
+from sqlalchemy import create_engine, Column, Integer, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import numpy as np
 
 
 Base = declarative_base()
@@ -76,9 +75,9 @@ def read_data():
     try:
         engine = connect_bd()
         if engine is None:
-            raise Exception("No se pudo conectar a la base de datos")
+            raise Exception("Unable to connect to the database")
         
-        query = "SELECT * FROM pruebaa"
+        query = 'SELECT * FROM pruebaa'
         df = pd.read_sql(query, engine)
         return df
     except Exception as error:
@@ -90,7 +89,7 @@ def read_data():
 if __name__ == "__main__":
 
     if create_table():
-        print("Table 'prueba' created successfully")
+        print("Table 'pruebaa' created successfully")
     else:
         print("Failed to create table 'prueba'")
     

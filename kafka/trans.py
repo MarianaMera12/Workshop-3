@@ -42,7 +42,7 @@ def standardize_column_17(df):
     df.rename(columns=new_column_names, inplace=True)
 
 
-def standardize_1819(df):
+def standardize_column_1819(df):
     """
     Standardizes column names for 2018 and 2019 DataFrames.
     """

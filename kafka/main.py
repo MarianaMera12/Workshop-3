@@ -26,7 +26,7 @@ def kafka_producer(row):
     producer.flush()  
     print("Message sent")
     
-    sleep(1)
+    sleep(0.2)
 
 def kafka_consumer(model):
     consumer = KafkaConsumer(
