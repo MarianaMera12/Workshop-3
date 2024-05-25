@@ -24,20 +24,19 @@ This project predicts the happiness score of countries using data from the 2015-
 
 8. **Results Visualization:** Creation of maps and graphs to illustrate happiness scores and the distribution of key variables.
 
-### Tools Technologies
+### Tools Technologies 💻
 
 - Python
 - Jupiter Notebook
-- Database (you choose)
+- Database PostgreSQL
 - Kafka
-- CSV files
 - Scikit-learn library 
 
 ### Data
 
 The data used in this project covers key indicators of well-being and happiness for different countries between 2015 and 2019. Each CSV file contains information on countries' happiness, including happiness score, GDP per capita, social support, life expectancy, freedom to make decisions, perception of corruption, and population generosity. These data allow for detailed analysis and the construction of predictive models to understand the factors that influence global happiness.
 
-### Repository content
+### Repository content 📁
 The structure of the repository is as follows:
 
 - `data`: The 5 csv are found. 
@@ -47,11 +46,11 @@ The structure of the repository is as follows:
 
 - `Kafka`:A folder that contains the following files:
 
-    - `main`:The main script to initiate the Kafka producer and consumer processes.
-    - `producer`:Handles the extraction and transformation of CSV data, then sends the processed data to the Kafka topic.
-    - `consumer`:Receives messages from the Kafka topic, makes predictions using the pre-trained model, and stores the results in the PostgreSQL database.
-    - `db_connection`:Manages the connection to the PostgreSQL database, including creating tables and inserting data.
-    - `transformation`:Contains functions to standardize column names, drop unnecessary columns, and handle missing data for the datasets.
+    - `main.py`:The main script to initiate the Kafka producer and consumer processes.
+    - `producer.py`:Handles the extraction and transformation of CSV data, then sends the processed data to the Kafka topic.
+    - `consumer.py`:Receives messages from the Kafka topic, makes predictions using the pre-trained model, and stores the results in the PostgreSQL database.
+    - `db_connection.py`:Manages the connection to the PostgreSQL database, including creating tables and inserting data.
+    - `transformation.py`:Contains functions to standardize column names, drop unnecessary columns, and handle missing data for the datasets.
 
 - `Model`: A folder that contains the following files:
     - `random_forest_model.pkl`: It contains the Random Forest model trained to predict the happiness of countries.
@@ -101,7 +100,7 @@ python -m venv venv
 pip install -r requirements.txt
 ~~~
 
-### Run Docker 
+### Run Docker 🐳
 
 **Requirement:** In Visual Studio Code have python and docker installed.
 
@@ -133,7 +132,7 @@ In the terminal:
 docker-compose up
 ~~~
 
-### Kafka 
+### Kafka 📊
 
 6. Access Kafka's container.
 ~~~
@@ -160,6 +159,6 @@ We hope this project will help you practice your Data Engineer skills. If you fo
 
 Your comments and suggestions are welcome, please contribute to the project!
 
-See you soon... 
+See you soon... ⭐🚀
 
 
