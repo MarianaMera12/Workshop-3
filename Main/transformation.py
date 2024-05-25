@@ -1,3 +1,4 @@
+
 def standardize_column_1516(df):
     """
     Standardizes column names for 2015 and 2016 DataFrames.
@@ -66,20 +67,6 @@ def dropna_df(df):
     Drops rows with NaN values in a DataFrame.
     """
     return df.dropna()
-
-def add_year_column(df, year):
-    """
-    Agrega una columna 'Year' con el valor especificado al DataFrame dado.
-
-    Args:
-        df (DataFrame): El DataFrame al que se agregará la columna.
-        year (int): El año que se asignará a la columna 'Year'.
-
-    Returns:
-        DataFrame: El DataFrame con la columna 'Year' agregada.
-    """
-    df['Year'] = year
-    return df
 
 
 def drop_columns(df, columns_to_drop):

@@ -1,4 +1,4 @@
-from trans import *
+from transformation import *
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from main import kafka_producer
@@ -28,6 +28,7 @@ def etl_csv():
     df = pd.concat([df_2015, df_2016, df_2017, df_2018, df_2019], ignore_index=True)
 
     columns_to_drop = ['Country','Happiness_Rank']
+    
     drop_columns(df,columns_to_drop)
 
     df = dropna_df(df)
@@ -37,13 +38,13 @@ def etl_csv():
 
 def split_data(df):
     """
-    Divide el DataFrame en conjuntos de entrenamiento y prueba para características y destino dados.
+    Splits the DataFrame into training and testing sets for given features and target.
 
     Args:
-        df (DataFrame): DataFrame que contiene los datos.
+        df (DataFrame): DataFrame containing the data.
 
     Returns:
-        DataFrame: Un DataFrame que contiene solo las filas de prueba.
+        DataFrame: A DataFrame containing only the test set rows.
     """
 
     X = df[['Economy_GDP_per_Capita', 'Social_Support', 'Health_Life_Expectancy', 'Freedom', 'Corruption', 'Generosity']]
@@ -52,6 +53,7 @@ def split_data(df):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=59)
 
     return df.loc[y_test.index]
+
 
 
 if __name__ == "__main__":

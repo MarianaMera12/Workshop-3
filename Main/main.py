@@ -1,12 +1,10 @@
 from kafka import KafkaProducer, KafkaConsumer
-#from confluent_kafka import Producer
 import pandas as pd
 import logging
 import joblib
 from json import dumps, loads
-from time import sleep, time
+from time import sleep
 from db_connection import insert_data
-import numpy as np
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
